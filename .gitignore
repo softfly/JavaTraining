@@ -1,0 +1,21 @@
+*~
+target/
+.settings/
+
+# Eclipse Core
+.project
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# NetBeans
+nb-configuration.xml
+
+# IntelliJ
+*.iml
