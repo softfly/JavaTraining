@@ -60,15 +60,12 @@ public class InitGenericsTraining extends AbstractTest {
 
 	@Test
 	public void initUnknownTypeTest() {
-		Set<?> set = new HashSet();
-		// set.add("test");// NOT COMPILE
-	}
-
-	@Test
-	public void init1Test() {
 		// Set set = new HashSet<?>();// NOT COMPILE
+		// Set<String> set = new HashSet<?>(); // NOT COMPILE
+		Set<?> set = new HashSet();
+		set.add("test");// NOT COMPILE
 	}
-
+	
 	@Test
 	public void init10Test() {
 		Set<? extends Object> c = new HashSet<String>();

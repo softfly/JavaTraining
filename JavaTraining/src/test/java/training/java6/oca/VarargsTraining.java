@@ -43,6 +43,13 @@ public class VarargsTraining extends AbstractTest {
 		integerVargs(a);
 		genericVargs(a);
 	}
+	
+	@Test
+	public void emptyTest() {
+		intVargs();
+		integerVargs();
+		genericVargs();
+	}
 
 	protected static void print(Object v1, Object v2) {
 		System.out.format(FORMAT_OUT, v1, v2);
