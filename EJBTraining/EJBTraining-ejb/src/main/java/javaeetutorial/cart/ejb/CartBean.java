@@ -11,12 +11,11 @@ import javaeetutorial.cart.util.BookException;
 import javaeetutorial.cart.util.IdVerifier;
 
 import javax.ejb.Remove;
-import javax.ejb.Stateful;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateful
+
 public class CartBean implements Cart, Serializable {
 
     String customerId;

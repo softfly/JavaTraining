@@ -10,11 +10,9 @@ package javaeetutorial.cart.ejb;
 
 import javaeetutorial.cart.util.BookException;
 
-import javax.ejb.Remote;
 import java.util.List;
 
 
-@Remote
 public interface Cart {
     public void initialize(String person) throws BookException;
 
