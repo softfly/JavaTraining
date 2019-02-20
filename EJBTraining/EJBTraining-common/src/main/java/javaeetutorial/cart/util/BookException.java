@@ -7,7 +7,10 @@
  */
 package javaeetutorial.cart.util;
 
-public class BookException extends Exception {
+import java.rmi.RemoteException;
+
+public class BookException extends RemoteException {
+
     private static final long serialVersionUID = 6274585742564840905L;
 
     public BookException() {

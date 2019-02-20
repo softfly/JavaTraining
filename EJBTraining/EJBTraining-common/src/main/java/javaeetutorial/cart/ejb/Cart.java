@@ -8,23 +8,22 @@
 package javaeetutorial.cart.ejb;
 
 
-import javaeetutorial.cart.util.BookException;
-
+import java.rmi.RemoteException;
 import java.util.List;
 
 
 public interface Cart {
-    public void initialize(String person) throws BookException;
 
-    public void initialize(
-            String person,
-            String id) throws BookException;
+    void initialize(String person) throws RemoteException;
 
-    public void addBook(String title);
+    void initialize(String person, String id) throws RemoteException;
 
-    public void removeBook(String title) throws BookException;
+    void addBook(String title) throws RemoteException;
 
-    public List<String> getContents();
+    void removeBook(String title) throws RemoteException;
 
-    public void remove();
+    List<String> getContents() throws RemoteException;
+
+    void clear() throws RemoteException;
+
 }

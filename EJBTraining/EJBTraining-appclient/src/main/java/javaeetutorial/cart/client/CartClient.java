@@ -8,9 +8,15 @@
 package javaeetutorial.cart.client;
 
 import javaeetutorial.cart.ejb.Cart;
+import javaeetutorial.cart.ejb.CartHome;
 import javaeetutorial.cart.util.BookException;
 
-import javax.ejb.EJB;
+import javax.ejb.CreateException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.rmi.PortableRemoteObject;
+import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,7 +28,7 @@ import java.util.List;
  * @author ian
  */
 public class CartClient {
-    @EJB
+
     private static Cart cart;
 
     public CartClient(String[] args) {
@@ -30,20 +36,22 @@ public class CartClient {
 
     /**
      * @param args the command line arguments
+     * @throws CreateException
+     * @throws RemoteException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException, CreateException, NamingException {
         CartClient client = new CartClient(args);
         client.doTest();
     }
 
-    public void doTest() {
+    public void doTest() throws CreateException, NamingException, RemoteException {
         try {
-            cart.initialize("Duke d'Url", "123");
-            cart.addBook("Infinite Jest");
-            cart.addBook("Bel Canto");
-            cart.addBook("Kafka on the Shore");
+            getCart().initialize("Duke d'Url", "123");
+            getCart().addBook("Infinite Jest");
+            getCart().addBook("Bel Canto");
+            getCart().addBook("Kafka on the Shore");
 
-            List<String> bookList = cart.getContents();
+            List<String> bookList = getCart().getContents();
 
             Iterator<String> iterator = bookList.iterator();
 
@@ -53,8 +61,8 @@ public class CartClient {
             }
 
             System.out.println("Removing \"Gravity's Rainbow\" from cart.");
-            cart.removeBook("Gravity's Rainbow");
-            cart.remove();
+            getCart().removeBook("Gravity's Rainbow");
+            getCart().clear();
 
             System.exit(0);
         } catch (BookException ex) {
@@ -62,4 +70,15 @@ public class CartClient {
             System.exit(0);
         }
     }
+
+    protected Cart getCart() throws NamingException, RemoteException, CreateException {
+        if (cart == null) {
+            Context context = new InitialContext();
+            Object homeObject = context.lookup("javaeetutorial.cart.ejb.CartHome");
+            CartHome cartHome = (CartHome) PortableRemoteObject.narrow(homeObject, CartHome.class);
+            cart = cartHome.create();
+        }
+        return cart;
+    }
+
 }

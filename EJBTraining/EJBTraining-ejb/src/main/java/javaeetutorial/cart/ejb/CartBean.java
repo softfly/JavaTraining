@@ -10,16 +10,21 @@ package javaeetutorial.cart.ejb;
 import javaeetutorial.cart.util.BookException;
 import javaeetutorial.cart.util.IdVerifier;
 
+import javax.ejb.EJBException;
 import javax.ejb.Remove;
-import java.io.Serializable;
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CartBean implements Cart, Serializable {
+public class CartBean implements Cart, SessionBean {
 
     String customerId;
+
     String customerName;
+
     List<String> contents;
 
     @Override
@@ -72,8 +77,31 @@ public class CartBean implements Cart, Serializable {
     }
 
     @Remove()
-    @Override
-    public void remove() {
+    public void clear() {
         contents = null;
+    }
+
+    @Override
+    public void setSessionContext(SessionContext sessionContext) throws EJBException, RemoteException {
+
+    }
+
+    public void ejbCreate() throws EJBException, RemoteException {
+
+    }
+
+    @Override
+    public void ejbRemove() throws EJBException, RemoteException {
+
+    }
+
+    @Override
+    public void ejbActivate() throws EJBException, RemoteException {
+
+    }
+
+    @Override
+    public void ejbPassivate() throws EJBException, RemoteException {
+
     }
 }
